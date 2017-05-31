@@ -1,0 +1,39 @@
+/* Nabeel Warsalee
+ * ICS3U
+ * Summative Project
+ * Game : Connect 4
+ * Started May 30th, 2017 */
+
+class ConnectFour {
+
+  public static void main (String [] args) {
+    String[][] board = new String[6][7];
+    
+    System.out.println("Welcome to Connect Four!");
+    
+    for (int y=0; y<6; y++) {
+      for (int x=0; x<7; x++) {
+        board[y][x] = "[ ]";
+      }
+    }
+    /*System.out.println(" 1  2  3  4  5  6  7");
+    for (int y=0; y<6; y++) {
+      for (int x=0; x<7; x++) {
+        System.out.print(board[y][x]);
+      }
+      System.out.print("\n");
+    }*/
+    printBoard(board);
+  }
+  
+  public static void printBoard (String[][] board) { // Void method to print the game board
+    System.out.println(" 1  2  3  4  5  6  7");
+    for (int y=0; y<6; y++) {
+      for (int x=0; x<7; x++) {
+        System.out.print(board[y][x]);
+      }
+      System.out.print("\n");
+    }
+  }
+
+}
