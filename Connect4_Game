@@ -1,9 +1,9 @@
 class ConnectFour {
 
   public static void main (String [] args) {
-    char[][] board = new char[6][7];
-    int user1, user2;
-    boolean chipPlaced;
+    char[][] board = new char[6][7]; // Char array for the game board (6x7 board)
+    int user1, user2; // Int vars for the user inputs
+    boolean chipPlaced; // Boolean variable for wether or not a chip has already placed
     System.out.println("Welcome to Connect Four!");  
     
     
@@ -13,50 +13,37 @@ class ConnectFour {
       }
     }
     
-    /*System.out.print("Enter location : ");
-    user1 = In.getInt();
-    user1 -=1;
-    
-    for (int i=0; i<7; i++) { // Looping through the columns
-      if (user1 == i) {
-        for (int x=0; x<6; x++) { // Looping through the rows
-          if (board[x][i] != 32) {
-            board[x][i] = 82;
-          }
-        }
-      }
-    }*/
-    
-    do {
+    do { // Do loop to test program
       
-    printBoard(board);
+    printBoard(board); // Calling print board method to print the board
     
+    // Prompt for user input
     System.out.print("Enter location : ");
     user1 = In.getInt();
-    user1 -=1;
+    user1 -=1; // Takes their value and substracts 1 (to avoid array out of bounds error)
     
     for (int i=0; i<7; i++) { // Looping through the columns
-      chipPlaced = false;
-      if (user1 == i) {
-        for (int x=5; x>=0; x--) { // Looping through the rows
+      chipPlaced = false; // Sets chipPlaced to false meaning that a chip must be placed
+      if (user1 == i) { // When it reaches the column that the player desires
+        for (int x=5; x>=0; x--) { // Loops through the rows, (From bottom of the board to the top)
           if (board[x][i] == 32 && chipPlaced == false) {
-            board[x][i] = 82;
-            chipPlaced = true;
+            board[x][i] = 82; // Changes the value of the element at index x, i to the char 'R'
+            chipPlaced = true; // Sets chipPlaced to true, meaning a chip was placed and a second chip should not be plavced this turn
           }
         }
       }
     }
     
-    } while (false!=true);
+    } while (false!=true); // Statement to continuously loop
     
   }
   
   public static void printBoard (char[][] board) { // Void method to print the game board
-    System.out.println(" 1  2  3  4  5  6  7");
-    for (int y=0; y<6; y++) {
-      for (int x=0; x<7; x++) {
+    System.out.println(" 1  2  3  4  5  6  7"); // Prints numbers over the columns
+    for (int y=0; y<6; y++) { // Cycles through the rows
+      for (int x=0; x<7; x++) { // Cycles through the columns
         System.out.print("[");
-        System.out.print(board[y][x]);
+        System.out.print(board[y][x]); // Prints the value
         System.out.print("]");
       }
       System.out.print("\n");
