@@ -26,5 +26,8 @@
 2. ~~Create the 2D array for the game board, get a sense for how 2D arrays work~~
 3. ~~Create the board and have it printed~~
 4. Create a list of rules for the game
-5. Create a system to take in users inputs and place it on the board  
-   More steps to be added...  
+5. ~~Create a system to take in users inputs and place it on the board~~
+6. ~~Make a method for user inputs~~
+7. Allow more than one colour to appear on the game board (two player functionality)
+8. Make a method for the code that places the chip on the board
+   More things to be added as development continues...  
