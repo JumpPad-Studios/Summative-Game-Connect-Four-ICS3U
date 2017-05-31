@@ -22,7 +22,7 @@
 * Win condition checker
 
 ### To-do List
-1. Create java file with the class file and main method
-2. Create the 2D array for the game board, get a sense for how 2D arrays work
-3. Create the board and have it printed
-   /nMore steps to be added...
+1. ~~Create java file with the class file and main method~~
+2. ~~Create the 2D array for the game board, get a sense for how 2D arrays work~~
+3. ~~Create the board and have it printed~~  
+   More steps to be added...  
