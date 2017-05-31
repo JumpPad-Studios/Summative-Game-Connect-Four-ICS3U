@@ -1,22 +1,54 @@
-/* Nabeel Warsalee
- * ICS3U
- * Summative Project
- * Game : Connect 4
- * Started May 30th, 2017 */
-
 class ConnectFour {
 
   public static void main (String [] args) {
     char[][] board = new char[6][7];
+    int user1, user2;
+    boolean chipPlaced;
+    System.out.println("Welcome to Connect Four!");  
     
-    System.out.println("Welcome to Connect Four!");
     
     for (int y=0; y<6; y++) {
       for (int x=0; x<7; x++) {
         board[y][x] = 32;
       }
     }
+    
+    /*System.out.print("Enter location : ");
+    user1 = In.getInt();
+    user1 -=1;
+    
+    for (int i=0; i<7; i++) { // Looping through the columns
+      if (user1 == i) {
+        for (int x=0; x<6; x++) { // Looping through the rows
+          if (board[x][i] != 32) {
+            board[x][i] = 82;
+          }
+        }
+      }
+    }*/
+    
+    do {
+      
     printBoard(board);
+    
+    System.out.print("Enter location : ");
+    user1 = In.getInt();
+    user1 -=1;
+    
+    for (int i=0; i<7; i++) { // Looping through the columns
+      chipPlaced = false;
+      if (user1 == i) {
+        for (int x=5; x>=0; x--) { // Looping through the rows
+          if (board[x][i] == 32 && chipPlaced == false) {
+            board[x][i] = 82;
+            chipPlaced = true;
+          }
+        }
+      }
+    }
+    
+    } while (false!=true);
+    
   }
   
   public static void printBoard (char[][] board) { // Void method to print the game board
@@ -30,5 +62,6 @@ class ConnectFour {
       System.out.print("\n");
     }
   }
+  
 
 }
