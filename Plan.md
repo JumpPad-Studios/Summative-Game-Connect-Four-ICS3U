@@ -11,7 +11,7 @@
 * Efficent use of code (Clean and effective)
 * Have the program recognize win conditions for horizontal, vertical and diagonal directions
 
-* Implement an AI/computer opponent (using minimax algorithm maybe?)
+* Implement an AI/computer opponent (using minimax algorithm or by conceptualizing my own AI)
 
 ### Methods for the program
 * Print the board
@@ -20,3 +20,9 @@
 * Take users' input and place it on the board
 * Error checker
 * Win condition checker
+
+### To-do List
+1. Create java file with the class file and main method
+2. Create the 2D array for the game board, get a sense for how 2D arrays work
+3. Create the board and have it printed
+   More steps to be added...
