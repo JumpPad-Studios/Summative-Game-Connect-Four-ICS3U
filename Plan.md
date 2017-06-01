@@ -34,5 +34,5 @@
 8. ~~Make a method for the code that places the chip on the board~~
 9. Create a system that will detect if someone will win (horizontal and vertical for now)
 10. Add on to that system a diagonal win condition
-11. Find a way to make the board load on the screen more smoothly
+11. Find a way to make the board load on the screen more smoothly  
    More things to be added as development continues...  
