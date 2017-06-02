@@ -12,15 +12,15 @@
 * Have the program recognize win conditions for horizontal, vertical and diagonal directions
 * Have the board load into the console smoothly
 
-##### Going further
+#### Going further
 * Possibly create a data system that records each players' moves throughout the game and lets the user access them after a game has finished 
 * Implement an AI/computer opponent (using minimax algorithm or by conceptualizing my own AI)
 
 ### Methods for the program
 * Print the board
 * Print the rules
-* Take users' input, error checker inside that array
-* Take users' input and place it on the board
+* Take user input, error checker inside that method
+* Take user input and place it on the board
 * Win condition checker
 
 ### To-do List
