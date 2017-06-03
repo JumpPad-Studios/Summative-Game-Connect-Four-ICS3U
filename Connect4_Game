@@ -6,7 +6,10 @@ class ConnectFour {
     //int user1, user2; // Int vars for the user inputs
     char player1 = 82, player2 = 89; // Char variables for the players' chips
     int playerTurn = 0; // Int var that makes each player take turns, set at zero for first players turn
-    System.out.println("Welcome to Connect Four!");  
+    
+    System.out.println("Welcome to Connect Four!"); // Initial statement  
+    
+    rules(); // Calling the rules method to print out the rules of the game  
     
     // Setting all values of the board array to space char
     for (int y=0; y<6; y++) {
@@ -33,6 +36,7 @@ class ConnectFour {
   
   // Void method to print the game board
   public static void printBoard (char[][] board) {
+  System.out.println("        Board       "); // Line that says it's the board
     System.out.println(" 1  2  3  4  5  6  7"); // Prints numbers over the columns
     for (int y=0; y<6; y++) { // Cycles through the rows
       for (int x=0; x<7; x++) { // Cycles through the columns
@@ -42,6 +46,14 @@ class ConnectFour {
       }
       System.out.print("\n");
     }
+  }
+  
+  // Void method to print the list of rules for the game
+  public static void rules () {
+    System.out.println("\nThese are the rules...");
+    System.out.println("- Be the first player to get four of your chips in a horizontal, vertical or diagonal row.");
+    System.out.println("- Choose a column on the board to drop your chip.");
+    System.out.println("- Each player takes turns placing their chips on the board.\n");
   }
   
   // Return method for the users input, parameter int player to print which players turn it is
