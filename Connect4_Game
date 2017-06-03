@@ -111,29 +111,33 @@ class ConnectFour {
       for (int x=5; x>=0; x--) { // Cycling through the rows
         if (board[x][i] == playerChip && winner == false) { // If that certain position on the board is equal to the playerChip char
           //Horizontal direction
-          try {
-            if (board[x][i+1] == playerChip && board[x][i+2] == playerChip && board[x][i+3] == playerChip) { // If the 3 proceeding chars in the horizontal direction are the same value, sets winner to true
-              winner = true;
+          if (board[x][i+1] == playerChip && winner == false) {
+            try {
+              if (board[x][i+1] == playerChip && board[x][i+2] == playerChip && board[x][i+3] == playerChip) { // If the 3 proceeding chars in the horizontal direction are the same value, sets winner to true
+                winner = true;
+              }
+              else {
+                winner = false;
+              }
             }
-            else {
+            catch (Exception e) { // Catching errors (specifically out of bounds array errors)
               winner = false;
             }
-          }
-          catch (Exception e) { // Catching errors (specifically out of bounds array errors)
-            winner = false;
           }
           
           // Vertical direction
-          try {
-            if (board[x+1][i] == playerChip && board[x+2][i] == playerChip && board[x+3][i] == playerChip){ // If the 3 proceeding chars in the vertical direction are the same value, sets winner to true
-              winner = true;
+          if (board[x-1][i] == playerChip && winner == false) {
+            try {
+              if (board[x-1][i] == playerChip && board[x-2][i] == playerChip && board[x-3][i] == playerChip){ // If the 3 proceeding chars in the vertical direction are the same value, sets winner to true
+                winner = true;
+              }
+              else {
+                winner = false;
+              }
             }
-            else {
+            catch (Exception e) { // Catching errors (specifically out of bounds array errors)
               winner = false;
             }
-          }
-          catch (Exception e) { // Catching errors (specifically out of bounds array errors)
-            winner = false;
           }
           
         }
