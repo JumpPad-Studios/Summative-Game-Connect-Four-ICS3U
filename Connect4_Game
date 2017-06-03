@@ -28,7 +28,11 @@ class ConnectFour {
       else { // If the remainder is not 0, player 2 has their turn 
         boardInteraction(player2, 2); // Call for boardInteraction method to set player 2's piece on the board
       }
-
+      
+      // Two statments that print out what the winChecker reads from the board
+      System.out.println("Winner boolean for P1 : " + winChecker(player1));
+      System.out.println("Winner boolean for P2 : " + winChecker(player2));
+      
       playerTurn++; // Adding one to playerTurn int to make sure the next loop changes turns 
     } while (false!=true); // Statement to continuously loop
     
@@ -96,6 +100,48 @@ class ConnectFour {
         }
       }
     }
+  }
+
+  // Return method to return whether or not someone has one the game
+  public static boolean winChecker (char playerChip) {
+    boolean winner = false; // Boolean var for if there's a winner
+    
+    // Series of for loops and selection statements to determine if someone has won in the horizontal direction.
+    for (int i=0; i<7; i++) { // Cycling through the columns
+      for (int x=5; x>=0; x--) { // Cycling through the rows
+        if (board[x][i] == playerChip && winner == false) { // If that certain position on the board is equal to the playerChip char
+          //Horizontal direction
+          try {
+            if (board[x][i+1] == playerChip && board[x][i+2] == playerChip && board[x][i+3] == playerChip) { // If the 3 proceeding chars in the horizontal direction are the same value, sets winner to true
+              winner = true;
+            }
+            else {
+              winner = false;
+            }
+          }
+          catch (Exception e) { // Catching errors (specifically out of bounds array errors)
+            winner = false;
+          }
+          
+          // Vertical direction
+          try {
+            if (board[x+1][i] == playerChip && board[x+2][i] == playerChip && board[x+3][i] == playerChip){ // If the 3 proceeding chars in the vertical direction are the same value, sets winner to true
+              winner = true;
+            }
+            else {
+              winner = false;
+            }
+          }
+          catch (Exception e) { // Catching errors (specifically out of bounds array errors)
+            winner = false;
+          }
+          
+        }
+      }
+    }
+    
+    return winner;
+    
   }
 
 }
