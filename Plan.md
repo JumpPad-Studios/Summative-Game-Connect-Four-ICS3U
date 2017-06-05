@@ -47,6 +47,7 @@
 13. ~~Add a replay functionality that asks the user whether or not they want to paly again after having compelted a match~~
 14. Let the users choose which colour they want to have
 15. Let the users enter their names so that the game can refer to them when it's their turn
-16. Fix bug of user entry where a user enters a number then a letter and it is accepted  
-17. Begin the process of a **computer opponent/AI** (try implementing the *minimax algorithm*)  
+16. Fix bug of user entry where a user enters a number then a letter and it is accepted
+17. Let the users choose who starts, if they can't decide, make the program decide with a random number generator
+18. Begin the process of a **computer opponent/AI** (try implementing the *minimax algorithm*)  
    More things to be added as development continues...  
