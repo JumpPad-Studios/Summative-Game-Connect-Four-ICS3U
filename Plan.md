@@ -4,6 +4,8 @@
 ##### ICS3U
 ##### May 31st, 2017
 
+---
+
 ### Goals
 * Have a functioning game
 * A nice and simple UI for easy interaction
@@ -16,6 +18,8 @@
 * Possibly create a data system that records each players' moves throughout the game and lets the user access them after a game has finished 
 * Implement an AI/computer opponent (using minimax algorithm or by conceptualizing my own AI)
 
+---
+
 ### Methods for the program
 * Print the board
 * Print the rules
@@ -24,6 +28,8 @@
 * Win condition checker
 * Set up the board
 * Restarting the game
+
+---
 
 ### To-do List
 1. ~~Create java file with the class file and main method~~
