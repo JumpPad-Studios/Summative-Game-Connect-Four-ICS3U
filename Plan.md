@@ -28,7 +28,7 @@
 1. ~~Create java file with the class file and main method~~
 2. ~~Create the 2D array for the game board, get a sense for how 2D arrays work~~
 3. ~~Create the board and have it printed~~
-4. Create a list of rules for the game
+4. ~~Create a list of rules for the game~~
 5. ~~Create a system to take in users inputs and place it on the board~~
 6. ~~Make a method for user inputs~~
 7. ~~Allow more than one colour to appear on the game board (two player functionality)~~
@@ -36,6 +36,6 @@
 9. ~~Create a system that will detect if someone will win (horizontal and vertical for now)~~
 10. ~~Add on to that system a diagonal win condition~~
 11. Find a way to make the board load on the screen more smoothly
-12. Have it so that the program detects a surplus of chips in a certain column and will tell the user to re-enter a column number (ie. Won't take in a value of 5 on the board if the 5 column is filled with chips)
-13. Add a replay functionality that asks the user wheter or not they want to paly again after having compelted a match  
+12. ~~Have it so that the program detects a surplus of chips in a certain column and will tell the user to re-enter a column number (ie. Won't take in a value of 5 on the board if the 5 column is filled with chips)~~
+13. Add a replay functionality that asks the user whether or not they want to paly again after having compelted a match  
    More things to be added as development continues...  
