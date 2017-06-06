@@ -85,13 +85,21 @@ class ConnectFour {
   // Return method for the users input
   public static int userInput (int player) { 
     int userIn = 0; // Int for the user input (preset to 0 to be able to compile)
+    String input; // String for the users input
     boolean validInput = true; // Boolean for wether or not it's a valid input, boolean for whether or not a column is full
-        
+    
     // Prompt for user input
     do {
+      
       try {
+        // Getting user's input
         System.out.print("Player " + player + " turn : ");
-        userIn = In.getInt();
+        input = In.getString();
+        
+        // Attempting to parse the users input that is a string into an int
+        // If it can't parse the string into an int, errors and goes to the catch statement
+        userIn = Integer.parseInt(input);
+        
         if (!(userIn >= 1 && userIn <=7)) { // If the user input is not between 1 and 7, sets validInput to false
           validInput = false;
           System.out.println("Not a valid input.");
