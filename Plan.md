@@ -17,6 +17,7 @@
 #### Going further
 * Possibly create a data system that records each players' moves throughout the game and lets the user access them after a game has finished 
 * Implement an AI/computer opponent (using minimax algorithm or by conceptualizing my own AI)
+* MAKE A GUI
 
 ---
 
