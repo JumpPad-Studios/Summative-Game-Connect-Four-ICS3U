@@ -50,6 +50,17 @@ class ConnectFour {
           }
         }
         
+        // Checking for tie game
+        if (gameOver == false) { // If the game still hasn't ended yet (no one has won), will then continue to check if it's a tie game
+          if (tieChecker() == true) { // If tieCheker returns true, sets gameOver to true and says game ends in tie
+            gameOver = true;
+            System.out.println("Game has ended in a tie.");
+          }
+          else { // If tieChecker returns false, keeps game going
+            gameOver = false;
+          }
+        }
+        
         playerTurn++; // Adding one to playerTurn int to make sure the next loop changes turns 
       } while (gameOver == false); // Game ends when gameOver boolean becomes true
       
@@ -102,7 +113,7 @@ class ConnectFour {
         
         if (!(userIn >= 1 && userIn <=7)) { // If the user input is not between 1 and 7, sets validInput to false
           validInput = false;
-          System.out.println("Not a valid input.");
+          System.out.println("Not a valid input. Enter a value between 1 and 7.");
         }
         // If the column that the user's trying to place their chip is full (Looks at the top position to check if the column's full]), asks them to re-enter
         else if (board[0][userIn-1] != 32) {
@@ -207,9 +218,29 @@ class ConnectFour {
         }
       }
     }
-    return winner;
-    
-    
+    return winner; 
+  }
+  
+  // Return method to indicate whether or not it's a tie game (seen by the whole board being filled without a line of 4)
+  // Should be used after the winChecker method to ensure that noyone has won
+  public static boolean tieChecker () {
+    boolean tieGame = false; // Variable for if their is a tie game
+    boolean tieSeen = true; // Variable to indicate whether or not a tie game was witnessed
+    for (int i=0; i<6; i++) {
+      for (int x=0; x<7; x++) {
+        if (tieSeen == true) { // If it hasn't detected a tie, continues to loop
+          if (board[i][x] == 32) {
+            tieGame = false;
+            tieSeen = false;
+          }
+          else {
+            tieGame = true;
+            //tieSeen = true; // Once it detects a tie, 
+          }
+        }
+      }
+    }
+    return tieGame;
   }
   
   // Void method to set the board up with empty spaces (used at the beginning of each match)
