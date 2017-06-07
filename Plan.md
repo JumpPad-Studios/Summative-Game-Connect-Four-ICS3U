@@ -46,9 +46,7 @@
 11. Find a way to make the board load on the screen more smoothly, with different colours to make it more pleasing to the eye
 12. ~~Have it so that the program detects a surplus of chips in a certain column and will tell the user to re-enter a column number (ie. Won't take in a value of 5 on the board if the 5 column is filled with chips)~~
 13. ~~Add a replay functionality that asks the user whether or not they want to paly again after having compelted a match~~
-14. Let the users choose which colour they want to have
-15. Let the users enter their names so that the game can refer to them when it's their turn
-16. Fix bug of user entry where a user enters a number then a letter and it is accepted
-17. Let the users choose who starts, if they can't decide, make the program decide with a random number generator
-18. Begin the process of a **computer opponent/AI** (try implementing the *minimax algorithm*)  
+14. ~~Fix bug of user entry where a user enters a number then a letter and it is accepted~~
+15. Begin the process of a **computer opponent/AI** (try implementing the *minimax algorithm*)
+16. Add a main menu to the game  
    More things to be added as development continues...  
