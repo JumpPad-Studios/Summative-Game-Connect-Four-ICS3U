@@ -1,24 +1,29 @@
+import java.util.Random; // Importing random utility for AI opponent
+
 class ConnectFour {
   
-  public static char[][] board = new char[6][7]; // Char array for the game board (6x7 board)
+  // Char array for the game board (6x7 board)
+  // Made public so that any method can access it, without passing it
+  // Needs to be modified a lot, public array makes it easy to have it changed that often
+  public static char[][] board = new char[6][7];
   
   public static void main (String [] args) {
     //int user1, user2; // Int vars for the user inputs
     char player1 = 82, player2 = 89; // Char variables for the players' chips
     int playerTurn; // Int var that makes each player take turns, set at zero for first players turn
     boolean gameOver, replayGame, exitGame = false; // Boolean variable to determine whether or not the game is over, and for whether or not to end the program
-    int choice;
+    int choice, cpuMove; // Int for the choice of the user and for the move of the computer
     System.out.println("Welcome to Connect Four!"); // Initial statement  
     do {
-      
-      // rules(); // Calling the rules method to print out the rules of the game
       choice = mainMenu(); // choice of the user will be the return value of the mainMenu function
+      
+      // If user selects option 1 (play connect 4), enters gamemode select 
       if (choice == 1) {
-        setupBoard(); // Calling setupBoard method to set up the board for a new game
+        
         
         // If user chooses choice 1, runs Person v person gamemode
         if (chooseMode() == 1) {
-          do { // Loop through each game
+          do { // Loop through game 
             setupBoard(); // Calling setupBoard method to set up the board for a new game
             printBoard(board); // Calling print board method to print the board, before the loop
             playerTurn = 0; // Setting the playerTurn var to 0 to make player 1 start
@@ -26,10 +31,10 @@ class ConnectFour {
             do { // Do loop to cycle through each players' turn
               
               if (playerTurn%2 == 0) { // If playerTurn mod 2 is zero, player 1 has their turn
-                boardInteraction(player1, 1); // Call for boardInteraction method to set player 1's piece on the board 
+                boardInteraction(player1, userInput(1)); // Call for boardInteraction method to set player 1's piece on the board 
               }
               else { // If the remainder is not 0, player 2 has their turn 
-                boardInteraction(player2, 2); // Call for boardInteraction method to set player 2's piece on the board
+                boardInteraction(player2, userInput(2)); // Call for boardInteraction method to set player 2's piece on the board
               }
               
               printBoard(board); // Calling print board method to print the board
@@ -70,8 +75,65 @@ class ConnectFour {
             replayGame = replayGame(); // replayGame will be the return value of the replayGame method
           } while (replayGame == true); // Program ends when replayGame is equal to false
         }
+        
+        
+        // If user chooses choice 2, enters AI versus mode
         else {
-          System.out.println("\nAI versus mode coming soon.");
+          do { // Loop through game
+            System.out.println("\nAI versus mode");
+            setupBoard(); // Calling setupBoard method to set up the board for a new game
+            printBoard(board); // Calling print board method to print the board, before the loop
+            playerTurn = 0; // Setting the playerTurn var to 0 to make player 1 start
+            
+            do { // Do loop to cycle through each players' turn
+              
+              if (playerTurn%2 == 0) { // If playerTurn mod 2 is zero, player 1 has their turn
+                boardInteraction(player1, userInput(1)); // Call for boardInteraction method to set player 1's piece on the board 
+              }
+              else { // If the remainder is not 0, computer has their turn
+                cpuMove = computerMove();
+                System.out.print("Computer's move : " + (cpuMove + 1) + "\n"); // Displays move of computer1
+                
+                boardInteraction(player2, cpuMove); // Call for boardInteraction method to set player 2's piece on the board
+              }
+              
+              printBoard(board); // Calling print board method to print the board
+              
+              if (playerTurn%2 == 0) {
+                if (winChecker(player1) == true) { // If the win checker returns true, says player 1 wins, sets gameOver to true to end the loop
+                  System.out.println("Player wins!");
+                  gameOver = true;
+                }
+                else { // If not, sets gameOver to false, continuing the game
+                  gameOver = false;
+                }
+              }
+              else {
+                if (winChecker(player2) == true) { // If the win checker returns true, says player 2 wins, sets gameOver to true to end the loop
+                  System.out.println("Computer wins!");
+                  gameOver = true;
+                }
+                else { // If not, sets gameOver to false, continuing the game
+                  gameOver = false;
+                }
+              }
+              
+              // Checking for tie game
+              if (gameOver == false) { // If the game still hasn't ended yet (no one has won), will then continue to check if it's a tie game
+                if (tieChecker() == true) { // If tieCheker returns true, sets gameOver to true and says game ends in tie
+                  gameOver = true;
+                  System.out.println("Game has ended in a tie.");
+                }
+                else { // If tieChecker returns false, keeps game going
+                  gameOver = false;
+                }
+              }
+              
+              playerTurn++; // Adding one to playerTurn int to make sure the next loop changes turns 
+            } while (gameOver == false); // Game ends when gameOver boolean becomes true
+            
+            replayGame = replayGame(); // replayGame will be the return value of the replayGame method
+          } while (replayGame == true); // Program ends when replayGame is equal to false
         }
       }
       // If user chooses the 2nd option, runs rules method
@@ -154,12 +216,12 @@ class ConnectFour {
   }
   
   // Void method to set the player's pieces on the game board
-  public static void boardInteraction (char playerChip, int player) {
-    boolean chipPlaced; // Boolean variable for wether or not a chip has already placed
-    int userIn = userInput(player); // Getting the users input
+  public static void boardInteraction (char playerChip, int move) {
+    boolean chipPlaced; // Boolean variable for whether or not a chip has already placed
+    //int userIn = userInput(player); // Getting the users input
     for (int i=0; i<7; i++) { // Looping through the columns
       chipPlaced = false; // Sets chipPlaced to false meaning that a chip must be placed
-      if (userIn == i) { // When it reaches the column that the player desires
+      if (move == i) { // When it reaches the column that the player desires
         for (int x=5; x>=0; x--) { // Loops through the rows, (From bottom of the board to the top)
           if (board[x][i] == 32 && chipPlaced == false) {
             board[x][i] = playerChip; // Changes the value of the element at index x, i to the char 'R'
@@ -345,7 +407,7 @@ class ConnectFour {
       
       try {
         // Getting user's input
-        System.out.println("1) Play Connect Four\n2) How to play\n3) Credits\n4) Exit game");
+        System.out.println("Main menu\n1) Play Connect Four\n2) How to play\n3) Credits\n4) Exit game");
         System.out.print("Choice : ");
         input = In.getString().trim();;
         
@@ -392,6 +454,24 @@ class ConnectFour {
     } while (validInput == false); // Continues loop while the input isn't valid
     
     return exitGame;
+  }
+  
+  // Return method to return the value of the computer's move
+  public static int computerMove () {
+    Random rand = new Random(); // Creating random variable to get random number
+    int move; // Int for the comps move
+    boolean validMove = false; // Boolean for whether or not the computer's move is valid or not
+    
+    do {
+      move = rand.nextInt(7); // Generating random number between 1 and 7
+      if (board[0][move] != 32) { // If the column is full, sets validMove to false
+        validMove = false;
+      }
+      else { // If it's valid, sets validMove to true
+        validMove = true;
+      }
+    } while (validMove == false);
+    return move;
   }
   
 }
