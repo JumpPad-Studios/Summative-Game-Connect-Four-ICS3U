@@ -6,70 +6,90 @@ class ConnectFour {
     //int user1, user2; // Int vars for the user inputs
     char player1 = 82, player2 = 89; // Char variables for the players' chips
     int playerTurn; // Int var that makes each player take turns, set at zero for first players turn
-    boolean gameOver, replayGame; // Boolean variable to determine whether or not the game is over, and for whether or not to end the program
-    
+    boolean gameOver, replayGame, exitGame = false; // Boolean variable to determine whether or not the game is over, and for whether or not to end the program
+    int choice;
     System.out.println("Welcome to Connect Four!"); // Initial statement  
-    
-    rules(); // Calling the rules method to print out the rules of the game
-    
-    do { // Loop through each game
+    do {
       
-      setupBoard(); // Calling setupBoard method to set up the board for a new game
-    
-      printBoard(board); // Calling print board method to print the board, before the loop
-      
-      playerTurn = 0; // Setting the playerTurn var to 0 to make player 1 start
-      
-      do { // Do loop to cycle through each players' turn
+      // rules(); // Calling the rules method to print out the rules of the game
+      choice = mainMenu(); // choice of the user will be the return value of the mainMenu function
+      if (choice == 1) {
+        setupBoard(); // Calling setupBoard method to set up the board for a new game
         
-        if (playerTurn%2 == 0) { // If playerTurn mod 2 is zero, player 1 has their turn
-          boardInteraction(player1, 1); // Call for boardInteraction method to set player 1's piece on the board 
-        }
-        else { // If the remainder is not 0, player 2 has their turn 
-          boardInteraction(player2, 2); // Call for boardInteraction method to set player 2's piece on the board
-        }
-        
-        printBoard(board); // Calling print board method to print the board
-        
-        if (playerTurn%2 == 0) {
-          if (winChecker(player1) == true) { // If the win checker returns true, says player 1 wins, sets gameOver to true to end the loop
-            System.out.println("Player 1 wins!");
-            gameOver = true;
-          }
-          else { // If not, sets gameOver to false, continuing the game
-            gameOver = false;
-          }
+        // If user chooses choice 1, runs Person v person gamemode
+        if (chooseMode() == 1) {
+          do { // Loop through each game
+            setupBoard(); // Calling setupBoard method to set up the board for a new game
+            printBoard(board); // Calling print board method to print the board, before the loop
+            playerTurn = 0; // Setting the playerTurn var to 0 to make player 1 start
+            
+            do { // Do loop to cycle through each players' turn
+              
+              if (playerTurn%2 == 0) { // If playerTurn mod 2 is zero, player 1 has their turn
+                boardInteraction(player1, 1); // Call for boardInteraction method to set player 1's piece on the board 
+              }
+              else { // If the remainder is not 0, player 2 has their turn 
+                boardInteraction(player2, 2); // Call for boardInteraction method to set player 2's piece on the board
+              }
+              
+              printBoard(board); // Calling print board method to print the board
+              
+              if (playerTurn%2 == 0) {
+                if (winChecker(player1) == true) { // If the win checker returns true, says player 1 wins, sets gameOver to true to end the loop
+                  System.out.println("Player 1 wins!");
+                  gameOver = true;
+                }
+                else { // If not, sets gameOver to false, continuing the game
+                  gameOver = false;
+                }
+              }
+              else {
+                if (winChecker(player2) == true) { // If the win checker returns true, says player 2 wins, sets gameOver to true to end the loop
+                  System.out.println("Player 2 wins!");
+                  gameOver = true;
+                }
+                else { // If not, sets gameOver to false, continuing the game
+                  gameOver = false;
+                }
+              }
+              
+              // Checking for tie game
+              if (gameOver == false) { // If the game still hasn't ended yet (no one has won), will then continue to check if it's a tie game
+                if (tieChecker() == true) { // If tieCheker returns true, sets gameOver to true and says game ends in tie
+                  gameOver = true;
+                  System.out.println("Game has ended in a tie.");
+                }
+                else { // If tieChecker returns false, keeps game going
+                  gameOver = false;
+                }
+              }
+              
+              playerTurn++; // Adding one to playerTurn int to make sure the next loop changes turns 
+            } while (gameOver == false); // Game ends when gameOver boolean becomes true
+            
+            replayGame = replayGame(); // replayGame will be the return value of the replayGame method
+          } while (replayGame == true); // Program ends when replayGame is equal to false
         }
         else {
-          if (winChecker(player2) == true) { // If the win checker returns true, says player 2 wins, sets gameOver to true to end the loop
-            System.out.println("Player 2 wins!");
-            gameOver = true;
-          }
-          else { // If not, sets gameOver to false, continuing the game
-            gameOver = false;
-          }
+          System.out.println("\nAI versus mode coming soon.");
         }
-        
-        // Checking for tie game
-        if (gameOver == false) { // If the game still hasn't ended yet (no one has won), will then continue to check if it's a tie game
-          if (tieChecker() == true) { // If tieCheker returns true, sets gameOver to true and says game ends in tie
-            gameOver = true;
-            System.out.println("Game has ended in a tie.");
-          }
-          else { // If tieChecker returns false, keeps game going
-            gameOver = false;
-          }
-        }
-        
-        playerTurn++; // Adding one to playerTurn int to make sure the next loop changes turns 
-      } while (gameOver == false); // Game ends when gameOver boolean becomes true
-      
-      replayGame = replayGame();
-      
-    } while (replayGame == true); // Program ends when replayGame is equal to false
-    
+      }
+      // If user chooses the 2nd option, runs rules method
+      else if (choice == 2) {
+        rules(); // Calling rules method to print the rules
+      }
+      // If user chooses the 3rd option
+      else if (choice == 3){
+        System.out.println("\nMade by Nabeel Warsalee\nICS3U Final Project\nJune 5th, 2017"); // Credits statement
+      }
+      else {
+        exitGame = exitGame(); // exitGame boolean will be the return value of the exitGame method
+      }
+      System.out.println(""); // Printing blank line
+    } while (exitGame == false);
     System.out.println("Thanks for playing!!!\n\nMade by Nabeel Warsalee\nICS3U Final Project\nJune 5th, 2017");
   }
+  
   
   // Void method to print the game board
   public static void printBoard (char[][] board) {
@@ -88,9 +108,10 @@ class ConnectFour {
   // Void method to print the list of rules for the game
   public static void rules () {
     System.out.println("\nThese are the rules...");
-    System.out.println("- Be the first player to get four of your chips in a horizontal, vertical or diagonal row.");
+    System.out.println("- Be the first player to get four of your chips in a horizontal, vertical or diagonal line.");
     System.out.println("- Choose a column on the board to drop your chip.");
-    System.out.println("- Each player takes turns placing their chips on the board.\n");
+    System.out.println("- Each player takes turns placing their chips on the board.");
+    System.out.println("- Player 1 (Red) always starts first.");
   }
   
   // Return method for the users input
@@ -258,7 +279,7 @@ class ConnectFour {
     String userIn;
     boolean validInput, replayGame = true;
     
-    System.out.println("\nDo you want to play again?\n(Type 'yes' to coninue, 'no' to exit)");
+    System.out.println("\nDo you want to play again?\n(Type 'yes' to coninue, 'no' to return to main menu.)");
     do {
       userIn = In.getString();
       if (userIn.trim().toUpperCase().equals("YES")) { // If user types yes, sets replayGame to true, and validInput to true to exit loop
@@ -276,6 +297,101 @@ class ConnectFour {
     } while (validInput == false); // Continues loop while the input isn't valid
     
     return replayGame;
+  }
+  
+  // Return method to return the choice that the user makes pertaining to gamemode
+  public static int chooseMode () {
+    String input;
+    int userChoice = 0;
+    boolean validInput = false;
+    
+    // Prompt for user input
+    do {
+      
+      try {
+        // Getting user's input
+        System.out.println("\nWhich gamemode would you like to play?\n1) Person v.s Person\n2) Person v.s Computer");
+        System.out.print("Choice : ");
+        input = In.getString();
+        
+        // Attempting to parse the users input that is a string into an int
+        // If it can't parse the string into an int, errors and goes to the catch statement
+        userChoice = Integer.parseInt(input);
+        
+        if (!(userChoice >= 1 && userChoice <=2)) { // If the user input is not between 1 and 2, sets validInput to false
+          validInput = false;
+          System.out.println("Not a valid input.");
+        }
+        else {
+          validInput = true;
+        }
+      }
+      catch (Exception e) { // catches any exception
+        System.out.println("Not a valid input.");
+        validInput = false;
+      }
+    } while (validInput == false); // Loop exits when the user input is a valid one
+    return userChoice;
+  }
+  
+  // Return method to return the choice that the user makes at the main menu
+  public static int mainMenu () {
+    String input;
+    int userChoice = 0;
+    boolean validInput = false;
+    
+    // Prompt for user input
+    do {
+      
+      try {
+        // Getting user's input
+        System.out.println("1) Play Connect Four\n2) How to play\n3) Credits\n4) Exit game");
+        System.out.print("Choice : ");
+        input = In.getString().trim();;
+        
+        // Attempting to parse the users input that is a string into an int
+        // If it can't parse the string into an int, errors and goes to the catch statement
+        userChoice = Integer.parseInt(input);
+        
+        if (!(userChoice >= 1 && userChoice <=4)) { // If the user input is not between 1 and 2, sets validInput to false
+          validInput = false;
+          System.out.println("Not a valid input.");
+        }
+        else {
+          validInput = true;
+        }
+      }
+      catch (Exception e) { // catches any exception
+        System.out.println("Not a valid input.");
+        validInput = false;
+      }
+    } while (validInput == false); // Loop exits when the user input is a valid one
+    return userChoice;
+  }
+  
+  // Return method to return whether or not the user wants to exit the program (clone of replayGame method)
+  public static boolean exitGame () {
+    String userIn;
+    boolean validInput, exitGame = true;
+    
+    System.out.println("\nAre you sure you want to exit the program?\n(Type 'yes' to exit, 'no' to return to main menu.)");
+    do {
+      userIn = In.getString();
+      if (userIn.trim().toUpperCase().equals("YES")) { // If user types yes, sets replayGame to true, and validInput to true to exit loop
+        exitGame = true;
+        validInput = true;
+      }
+      else if (userIn.trim().toUpperCase().equals("NO")) { // If user types no, sets replayGame to false, and validInput to true to exit loop
+        exitGame = false;
+        validInput = true;
+      }
+      else { // If the input is anything else, sets validInput to false to loop again
+        validInput = false;
+        System.out.println("Invalid input.");
+      }
+    } while (validInput == false); // Continues loop while the input isn't valid
+    
+    return exitGame;
   }
   
 }
