@@ -47,6 +47,7 @@
 12. ~~Have it so that the program detects a surplus of chips in a certain column and will tell the user to re-enter a column number (ie. Won't take in a value of 5 on the board if the 5 column is filled with chips)~~
 13. ~~Add a replay functionality that asks the user whether or not they want to paly again after having compelted a match~~
 14. ~~Fix bug of user entry where a user enters a number then a letter and it is accepted~~
-15. Begin the process of a **computer opponent/AI** (try implementing the *minimax algorithm*)
-16. Add a main menu to the game  
+15. ~~Begin the process of a **computer opponent/AI**~~ (try implementing the *minimax algorithm*) **could not be done**
+16. ~~Add a main menu to the game~~
+17. ~~Add some sort of computer opponent~~  
    More things to be added as development continues...  
