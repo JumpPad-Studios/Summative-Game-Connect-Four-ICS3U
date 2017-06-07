@@ -27,8 +27,13 @@
 * Take user input, error checker inside that method
 * Take user input and place it on the board
 * Win condition checker
+* Tie condition checker
 * Set up the board
 * Restarting the game
+* For main menu
+* Computer's move
+* Exiting the program entirely
+* Gamemode selecter
 
 ---
 
