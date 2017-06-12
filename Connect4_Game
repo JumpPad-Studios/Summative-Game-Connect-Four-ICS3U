@@ -91,7 +91,7 @@ class ConnectFour {
                 boardInteraction(player1, userInput(1)); // Call for boardInteraction method to set player 1's piece on the board 
               }
               else { // If the remainder is not 0, computer has their turn
-                cpuMove = computerMove();
+                cpuMove = computerMove(player1, player2); // CPU move will be the return value of computerMove
                 System.out.print("Computer's move : " + (cpuMove + 1) + "\n"); // Displays move of computer1
                 
                 boardInteraction(player2, cpuMove); // Call for boardInteraction method to set player 2's piece on the board
@@ -457,20 +457,107 @@ class ConnectFour {
   }
   
   // Return method to return the value of the computer's move
-  public static int computerMove () {
+  public static int computerMove (char playerChar, char cpuChar) {
     Random rand = new Random(); // Creating random variable to get random number
-    int move; // Int for the comps move
-    boolean validMove = false; // Boolean for whether or not the computer's move is valid or not
+    int move = 1; // Int for the comps move
+    boolean validMove = false, moveChosen=false; // Boolean for whether or not the computer's move is valid or not and for whether or not it needs to defend
     
-    do {
-      move = rand.nextInt(7); // Generating random number between 1 and 7
-      if (board[0][move] != 32) { // If the column is full, sets validMove to false
-        validMove = false;
+    // Checks to see if it needs to defend
+    if (moveChosen == false) {
+      for (int i=5; i>=0; i--) {
+        for (int x=0; x<7; x++) {
+          // Try statement to catch any array out of bounds errors
+          try {
+            // Trying to block horizontal moves to the right
+            if (board[i][x] == playerChar && board[i][x+1] == playerChar && board[i][x+2] == playerChar && moveChosen == false) {
+              if (x+3 <= 7 && board[i][x+3] == 32) {
+                moveChosen = true;
+                move = x+3;
+              }
+            }
+          }
+          catch (Exception e) {
+          }
+          try {
+            // Trying to block horizontal moves to the left
+            if (board[i][x] == playerChar && board[i][x-1] == playerChar && board[i][x-2] == playerChar && moveChosen == false) {
+              if (x-3 >= 1 && board[i][x-3] == 32) {
+                moveChosen = true;
+                move = x-3;
+              }
+            }
+          }
+          catch (Exception e) {
+          }
+          try {
+            // Trying to block vertical moves
+            if (board[i][x] == playerChar && board[i+1][x] == playerChar && board[i+2][x] == playerChar && moveChosen == false) {
+              if (board[0][x] == 32 && board[i+3][x] == 32) {
+                moveChosen = true;
+                move = x;
+              }
+            }
+          }
+          catch (Exception e) {
+          }
+        }
       }
-      else { // If it's valid, sets validMove to true
-        validMove = true;
+    }
+    
+    // Checks to see if it needs to attack
+    if (moveChosen == false) {
+      for (int i=5; i>=0; i--) {
+        for (int x=0; x<7; x++) {
+          // Try statement to catch any array out of bounds errors
+          try {
+            // Trying to attack horizontal moves to the right
+            if (board[i][x] == cpuChar && board[i][x+1] == cpuChar && board[i][x+2] == cpuChar && moveChosen == false) {
+              if (x+3 <= 7 && board[i][x+3] == 32) {
+                moveChosen = true;
+                move = x+3;
+              }
+            }
+          }
+          catch (Exception e) {
+          }
+          try {
+            // Trying to attack horizontal moves to the left
+            if (board[i][x] == cpuChar && board[i][x-1] == cpuChar && board[i][x-2] == cpuChar && moveChosen == false) {
+              if (x-3 >= 1 && board[i][x-3] == 32) {
+                moveChosen = true;
+                move = x-3;
+              }
+            }
+          }
+          catch (Exception e) {
+          }
+          try {
+            // Trying to attack vertical moves
+            if (board[i][x] == cpuChar && board[i+1][x] == cpuChar && board[i+2][x] == cpuChar && moveChosen == false) {
+              if (board[0][x] == 32 && board[i+3][x] == 32) {
+                moveChosen = true;
+                move = x;
+              }
+            }
+          }
+          catch (Exception e) {
+          }
+        }
       }
-    } while (validMove == false);
+    }
+    
+    // If it doesn't need to defend or attack, places the piece at random
+    if (moveChosen == false) {
+      do {
+        move = rand.nextInt(7); // Generating random number between 1 and 7
+        if (board[0][move] != 32) { // If the column is full, sets validMove to false
+          validMove = false;
+        }
+        else { // If it's valid, sets validMove to true
+          validMove = true;
+        }
+      } while (validMove == false);
+    }
     return move;
   }
   
