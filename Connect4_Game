@@ -341,7 +341,7 @@ class ConnectFour {
     String userIn;
     boolean validInput, replayGame = true;
     
-    System.out.println("\nDo you want to play again?\n(Type 'yes' to coninue, 'no' to return to main menu.)");
+    System.out.println("\nDo you want to play again?\n(Type 'yes' to continue, 'no' to return to main menu.)");
     do {
       userIn = In.getString();
       if (userIn.trim().toUpperCase().equals("YES")) { // If user types yes, sets replayGame to true, and validInput to true to exit loop
@@ -459,7 +459,7 @@ class ConnectFour {
   // Return method to return the value of the computer's move
   public static int computerMove (char playerChar, char cpuChar) {
     Random rand = new Random(); // Creating random variable to get random number
-    int move = 1; // Int for the comps move
+    int move = 0; // Int for the comps move
     boolean validMove = false, moveChosen=false; // Boolean for whether or not the computer's move is valid or not and for whether or not it needs to defend
     
     // Checks to see if it needs to defend
@@ -469,10 +469,18 @@ class ConnectFour {
           // Try statement to catch any array out of bounds errors
           try {
             // Trying to block horizontal moves to the right
-            if (board[i][x] == playerChar && board[i][x+1] == playerChar && board[i][x+2] == playerChar && moveChosen == false) {
-              if (x+3 <= 7 && board[i][x+3] == 32) {
-                moveChosen = true;
-                move = x+3;
+            if (board[i][x] == playerChar && board[i][x+1] == playerChar && board[i][x+2] == playerChar  && moveChosen == false) {
+              if (x+3 <= 7 && board[i][x+3] == 32) { // Checks to see if the row has a empty space to place the chip (ex (R)(R)(R)( ) works, but (Y)(Y)(Y)(R) won't)
+                if (i==5) { // If the row it's in is the bottom one, no need to check for a solid space
+                  moveChosen = true;
+                  move = x+3;
+                }
+                else {
+                  if (board[i+1][x+3] != 32) { // Checks if there's a 'solid space' under where it would need to place its chip
+                    moveChosen = true;
+                    move = x+3;
+                  }
+                }
               }
             }
           }
@@ -481,9 +489,55 @@ class ConnectFour {
           try {
             // Trying to block horizontal moves to the left
             if (board[i][x] == playerChar && board[i][x-1] == playerChar && board[i][x-2] == playerChar && moveChosen == false) {
-              if (x-3 >= 1 && board[i][x-3] == 32) {
-                moveChosen = true;
-                move = x-3;
+              if (x-3 >= 1 && board[i][x-3] == 32) { // Checks to see if the row has a empty space to place the chip (ex (R)(R)(R)( ) works, but (Y)(Y)(Y)(R) won't)
+                if (i==5) { // If the row it's in is the bottom one, no need to check for a solid space
+                  moveChosen = true;
+                  move = x-3;
+                }
+                else {
+                  if (board[i+1][x-3] != 32) { // Checks if there's a 'solid space' under where it would need to place its chip
+                    moveChosen = true;
+                    move = x-3;
+                  }
+                }
+              }
+            }
+          }
+          catch (Exception e) {
+          }
+          try {
+            // Trying to block horizontal moves to the right (open spaces ex. **( )*) case 1
+            if (board[i][x] == playerChar && board[i][x+1] == playerChar && board[i][x+3] == playerChar && moveChosen == false) {
+              if (board[i][x+2] == 32) { // Checks to see if the row has a empty space to place the chip (ex (R)(R)(R)( ) works, but (Y)(Y)(Y)(R) won't)
+                if (i==5) { // If the row it's in is the bottom one, no need to check for a solid space
+                  moveChosen = true;
+                  move = x+2;
+                }
+                else {
+                  if (board[i+1][x+2] != 32) { // Checks if there's a 'solid space' under where it would need to place its chip
+                    moveChosen = true;
+                    move = x+2;
+                  }
+                }
+              }
+            }
+          }
+          catch (Exception e) {
+          }
+          try {
+            // Trying to block horizontal moves to the right (open spaces ex. *( )**) case 2
+            if (board[i][x] == playerChar && board[i][x+2] == playerChar && board[i][x+3] == playerChar && moveChosen == false) {
+              if (board[i][x+1] == 32) { // Checks to see if the row has a empty space to place the chip (ex (R)(R)(R)( ) works, but (Y)(Y)(Y)(R) won't)
+                if (i==5) { // If the row it's in is the bottom one, no need to check for a solid space
+                  moveChosen = true;
+                  move = x+1;
+                }
+                else {
+                  if (board[i+1][x+1] != 32) { // Checks if there's a 'solid space' under where it would need to place its chip
+                    moveChosen = true;
+                    move = x+1;
+                  }
+                }
               }
             }
           }
@@ -492,9 +546,31 @@ class ConnectFour {
           try {
             // Trying to block vertical moves
             if (board[i][x] == playerChar && board[i-1][x] == playerChar && board[i-2][x] == playerChar && moveChosen == false) {
-              if (board[0][x] == 32 && board[i-3][x] == 32) {
+              if (board[0][x] == 32 && board[i-3][x] == 32) { // Checks if column is full and if it where it needs to place it isn't filled
                 moveChosen = true;
                 move = x;
+              }
+            }
+          }
+          catch (Exception e) {
+          }
+          try {
+            // Trying to block diagonal moves (bot left to top right)
+            if (board[i][x] == playerChar && board[i-1][x+1] == playerChar && board[i-2][x+2] == playerChar && moveChosen == false) {
+              if (board[0][x] == 32 && board[i-3][x+3] == 32 && board[i-2][x+3] != 32) {
+                moveChosen = true;
+                move = x+3;
+              }
+            }
+          }
+          catch (Exception e) {
+          }
+          try {
+            // Trying to block diagonal moves (bot right to top left)
+            if (board[i][x] == playerChar && board[i-1][x-1] == playerChar && board[i-2][x-2] == playerChar && moveChosen == false) {
+              if (board[0][x] == 32 && board[i-3][x-3] == 32 && board[i-2][x-3] != 32) {
+                moveChosen = true;
+                move = x-3;
               }
             }
           }
@@ -513,19 +589,73 @@ class ConnectFour {
             // Trying to attack horizontal moves to the right
             if (board[i][x] == cpuChar && board[i][x+1] == cpuChar && board[i][x+2] == cpuChar && moveChosen == false) {
               if (x+3 <= 7 && board[i][x+3] == 32) {
-                moveChosen = true;
-                move = x+3;
+                if (i==5) { // If the row it's in is the bottom one, no need to check for a solid space
+                  moveChosen = true;
+                  move = x+3;
+                }
+                else {
+                  if (board[i+1][x+3] != 32) { // Checks if there's a 'solid space' under where it would need to place its chip
+                    moveChosen = true;
+                    move = x+3;
+                  }
+                }
+              }
+            }
+          }
+            catch (Exception e) {
+            }
+          try {
+            // Trying to attack horizontal moves to the left
+            if (board[i][x] == cpuChar && board[i][x-1] == cpuChar && board[i][x-2] == cpuChar && moveChosen == false) {
+              if (x-3 >= 1 && board[i][x-3] == 32) {
+                if (i==5) { // If the row it's in is the bottom one, no need to check for a solid space
+                  moveChosen = true;
+                  move = x-3;
+                }
+                else {
+                  if (board[i+1][x-3] != 32) { // Checks if there's a 'solid space' under where it would need to place its chip
+                    moveChosen = true;
+                    move = x-3;
+                  }
+                }
               }
             }
           }
           catch (Exception e) {
           }
           try {
-            // Trying to attack horizontal moves to the left
-            if (board[i][x] == cpuChar && board[i][x-1] == cpuChar && board[i][x-2] == cpuChar && moveChosen == false) {
-              if (x-3 >= 1 && board[i][x-3] == 32) {
-                moveChosen = true;
-                move = x-3;
+            // Trying to attack horizontal moves to the right (open spaces ex. **( )*) case 1
+            if (board[i][x] == cpuChar && board[i][x+1] == cpuChar && board[i][x+3] == cpuChar && moveChosen == false) {
+              if (board[i][x+2] == 32) {
+                if (i==5) { // If the row it's in is the bottom one, no need to check for a solid space
+                  moveChosen = true;
+                  move = x+2;
+                }
+                else {
+                  if (board[i+1][x+2] != 32) { // Checks if there's a 'solid space' under where it would need to place its chip
+                    moveChosen = true;
+                    move = x+2;
+                  }
+                }
+              }
+            }
+          }
+          catch (Exception e) {
+          }
+          try {
+            // Trying to attack horizontal moves to the right (open spaces ex. *( )**) case 2
+            if (board[i][x] == cpuChar && board[i][x+2] == cpuChar && board[i][x+3] == cpuChar && moveChosen == false) {
+              if (board[i][x+1] == 32) {
+                if (i==5) { // If the row it's in is the bottom one, no need to check for a solid space
+                  moveChosen = true;
+                  move = x+1;
+                }
+                else {
+                  if (board[i+1][x+1] != 32) { // Checks if there's a 'solid space' under where it would need to place its chip
+                    moveChosen = true;
+                    move = x+1;
+                  }
+                }
               }
             }
           }
@@ -537,6 +667,28 @@ class ConnectFour {
               if (board[0][x] == 32 && board[i-3][x] == 32) {
                 moveChosen = true;
                 move = x;
+              }
+            }
+          }
+          catch (Exception e) {
+          }
+          try {
+            // Trying to attack diagonal moves (bot left to top right)
+            if (board[i][x] == cpuChar && board[i-1][x+1] == cpuChar && board[i-2][x+2] == cpuChar && moveChosen == false) {
+              if (board[0][x] == 32 && board[i-3][x+3] == 32 && board[i-2][x+3] != 32) {
+                moveChosen = true;
+                move = x+3;
+              }
+            }
+          }
+          catch (Exception e) {
+          }
+          try {
+            // Trying to attack diagonal moves (bot right to top left)
+            if (board[i][x] == cpuChar && board[i-1][x-1] == cpuChar && board[i-2][x-2] == cpuChar && moveChosen == false) {
+              if (board[0][x] == 32 && board[i-3][x-3] == 32 && board[i-2][x-3] != 32) {
+                moveChosen = true;
+                move = x-3;
               }
             }
           }
